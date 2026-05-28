@@ -307,22 +307,17 @@ npm run lint       # Verificar código
 
 ## 🌍 Deploy
 
-### Opção 1: Vercel (Recomendado)
+### Opção 1: GitHub Pages (Recomendado)
 ```bash
-npm i -g vercel
-vercel --prod
+npm run build
+# Configurar GitHub Pages para pasta dist/
+# Em: Repository → Settings → Pages → Source: main / dist/
 ```
 
 ### Opção 2: Netlify
 ```bash
 npm run build
 # Upload da pasta dist/
-```
-
-### Opção 3: GitHub Pages
-```bash
-npm run build
-# Configurar GitHub Pages para pasta dist/
 ```
 
 ### Domínio

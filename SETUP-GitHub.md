@@ -132,34 +132,43 @@ git push origin feat/home
 
 ## 🌍 Deploy em Produção
 
-### Vercel (Recomendado)
+### GitHub Pages (Recomendado)
 
 ```bash
-# Instalar Vercel CLI
-npm i -g vercel
+# Build do projeto
+npm run build
 
-# Login
-vercel login
-
-# Deploy
-vercel --prod
-
-# Configurar domínio: clinicahopebrasil.com.br
-# Em: Vercel Dashboard → Settings → Domains
+# Fazer commit e push
+git add .
+git commit -m "feat: build para produção"
+git push origin main
 ```
 
-### Configurar DNS (Registro.br)
+### Configurar GitHub Pages
+
+1. No GitHub, acesse **Settings** do repositório
+2. Vá para **Pages** (no menu esquerdo)
+3. Em "Source", selecione: **main** / **dist/**
+4. Clique em **Save**
+5. O site estará disponível em `https://yourusername.github.io/clinica-hope`
+
+### Configurar Domínio Personalizado (Registro.br)
 
 1. Acesse registro.br com seu domínio
 2. DNS → Adicionar registros:
 
 ```
 Tipo    Nome    Valor
-A       @       76.76.21.21
-CNAME   www     cname.vercel-dns.com
+A       @       185.199.108.153
+A       @       185.199.109.153
+A       @       185.199.110.153
+A       @       185.199.111.153
+CNAME   www     yourusername.github.io
 ```
 
-3. Espere propagação (até 48h)
+3. No GitHub Pages, configure o domínio customizado: `clinicahopebrasil.com.br`
+4. Ative HTTPS (GitHub faz automaticamente)
+5. Espere propagação (até 48h)
 
 ---
 
@@ -173,7 +182,7 @@ CNAME   www     cname.vercel-dns.com
 - [ ] Google Sheets API ativada
 - [ ] Google Drive API ativada
 - [ ] Apps Script configurado
-- [ ] Deploy no Vercel
+- [ ] Deploy no GitHub Pages
 - [ ] Domínio DNS configurado
 - [ ] SSL (HTTPS) ativo
 - [ ] Primeiro commit no `main`
@@ -194,5 +203,6 @@ CNAME   www     cname.vercel-dns.com
 ### Erro CORS no Google Sheets
 → Verifique se a API Key tem permissão para o domínio
 
-### Build falha no Vercel
-→ Verifique se as variáveis de ambiente estão configuradas no dashboard do Vercel
+### Build falha localmente
+→ Verifique se as variáveis de ambiente estão configuradas no arquivo `.env`
+→ Certifique-se de que `npm install` foi executado sem erros
