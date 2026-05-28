@@ -28,15 +28,15 @@ const MONO = "'JetBrains Mono', monospace";
 // DATA
 // ═══════════════════════════════════════════════════════════════
 const ESPECIALISTAS = [
-  { nome: "Dra. Michelle Rodrigues", crp: "12/34567", abordagem: "TCC — Terapia Cognitivo-Comportamental", desc: "Especialista em ansiedade, depressão e transtornos do humor. Atendimento focado em resultados com técnicas baseadas em evidências científicas.", turnos: ["Manhã", "Tarde"], cor: "#7c9a8b", foto: "M" },
-  { nome: "Dra. Lana Baeta", crp: "12/34568", abordagem: "Neuropsicologia", desc: "Avaliação e reabilitação neuropsicológica. Especialista em TDAH, dificuldades de aprendizagem e comprometimento cognitivo.", turnos: ["Manhã"], cor: "#6b8fa3", foto: "L" },
-  { nome: "Dra. Gabriella Santos", crp: "12/34569", abordagem: "Psicologia Infantil — Ludoterapia", desc: "Atendimento acolhedor para crianças e adolescentes com técnicas lúdicas adaptadas a cada faixa etária.", turnos: ["Manhã", "Tarde"], cor: "#b48a78", foto: "G" },
-  { nome: "Dra. Andressa Lima", crp: "12/34570", abordagem: "Psicologia Organizacional", desc: "Orientação vocacional, coaching de carreira e saúde mental no ambiente corporativo.", turnos: ["Tarde"], cor: "#8b7ca3", foto: "A" },
-  { nome: "Dra. Andréia Costa", crp: "12/34571", abordagem: "Terapia de Casal e Família", desc: "Mediação de conflitos, fortalecimento de vínculos e terapia sistêmica para casais e famílias.", turnos: ["Manhã", "Tarde"], cor: "#a38b6b", foto: "A" },
-  { nome: "Dra. Suellen Oliveira", crp: "12/34572", abordagem: "Fenomenologia Existencial", desc: "Abordagem centrada na experiência vivida, autoconhecimento profundo e busca de sentido de vida.", turnos: ["Tarde"], cor: "#6ba3a0", foto: "S" },
-  { nome: "Dra. Graziela Ferreira", crp: "12/34573", abordagem: "Psicanálise", desc: "Escuta analítica para questões inconscientes, traumas e padrões repetitivos de comportamento.", turnos: ["Manhã"], cor: "#a36b7c", foto: "G" },
-  { nome: "Dra. Flavia Mendes", crp: "12/34574", abordagem: "Psicologia Escolar", desc: "Apoio psicológico para crianças em idade escolar, orientação para pais e acompanhamento pedagógico.", turnos: ["Manhã", "Tarde"], cor: "#6b9a7c", foto: "F" },
-  { nome: "Dra. Celejane Almeida", crp: "12/34575", abordagem: "TCC — Terapia Cognitiva", desc: "Tratamento de fobias, TOC e transtornos de ansiedade com protocolos cognitivo-comportamentais.", turnos: ["Manhã", "Tarde"], cor: "#9a8b6b", foto: "C" },
+  { nome: "Dra. Michelle Rodrigues", crp: "12/34567", abordagem: "TCC — Terapia Cognitivo-Comportamental", desc: "Especialista em ansiedade, depressão e transtornos do humor. Atendimento focado em resultados com técnicas baseadas em evidências científicas.", turnos: ["Manhã", "Tarde"], tipoAtendimento: ["adulto"], cor: "#7c9a8b", foto: "M" },
+  { nome: "Dra. Lana Baeta", crp: "12/34568", abordagem: "Neuropsicologia", desc: "Avaliação e reabilitação neuropsicológica. Especialista em TDAH, dificuldades de aprendizagem e comprometimento cognitivo.", turnos: ["Manhã", "Tarde", "Noite"], tipoAtendimento: ["criança", "adulto"], cor: "#6b8fa3", foto: "L" },
+  { nome: "Dra. Gabriella Santos", crp: "12/34569", abordagem: "Psicologia Infantil — Ludoterapia", desc: "Atendimento acolhedor para crianças e adolescentes com técnicas lúdicas adaptadas a cada faixa etária.", turnos: ["Manhã", "Tarde"], tipoAtendimento: ["criança"], cor: "#b48a78", foto: "G" },
+  { nome: "Dra. Andressa Lima", crp: "12/34570", abordagem: "Psicologia Organizacional", desc: "Orientação vocacional, coaching de carreira e saúde mental no ambiente corporativo.", turnos: ["Tarde", "Noite"], tipoAtendimento: ["adulto"], cor: "#8b7ca3", foto: "A" },
+  { nome: "Dra. Andréia Costa", crp: "12/34571", abordagem: "Terapia de Casal e Família", desc: "Mediação de conflitos, fortalecimento de vínculos e terapia sistêmica para casais e famílias.", turnos: ["Manhã", "Tarde", "Noite"], tipoAtendimento: ["adulto"], cor: "#a38b6b", foto: "A" },
+  { nome: "Dra. Suellen Oliveira", crp: "12/34572", abordagem: "Fenomenologia Existencial", desc: "Abordagem centrada na experiência vivida, autoconhecimento profundo e busca de sentido de vida.", turnos: ["Tarde", "Noite"], tipoAtendimento: ["adulto"], cor: "#6ba3a0", foto: "S" },
+  { nome: "Dra. Graziela Ferreira", crp: "12/34573", abordagem: "Psicanálise", desc: "Escuta analítica para questões inconscientes, traumas e padrões repetitivos de comportamento.", turnos: ["Manhã"], tipoAtendimento: ["adulto"], cor: "#a36b7c", foto: "G" },
+  { nome: "Dra. Flavia Mendes", crp: "12/34574", abordagem: "Psicologia Escolar", desc: "Apoio psicológico para crianças em idade escolar, orientação para pais e acompanhamento pedagógico.", turnos: ["Manhã", "Tarde", "Noite"], tipoAtendimento: ["criança", "adulto"], cor: "#6b9a7c", foto: "F" },
+  { nome: "Dra. Celejane Almeida", crp: "12/34575", abordagem: "TCC — Terapia Cognitiva", desc: "Tratamento de fobias, TOC e transtornos de ansiedade com protocolos cognitivo-comportamentais.", turnos: ["Manhã", "Tarde", "Noite"], tipoAtendimento: ["criança", "adulto"], cor: "#9a8b6b", foto: "C" },
 ];
 
 const PLANOS = [
@@ -149,6 +149,8 @@ function Website({ onAdmin }) {
   const [agendarPsi, setAgendarPsi] = useState("");
   const [carouselIdx, setCarouselIdx] = useState(0);
   const [reviewIdx, setReviewIdx] = useState(0);
+  const [filtroTipo, setFiltroTipo] = useState([]);
+  const [filtroPeriodo, setFiltroPeriodo] = useState([]);
 
   const openAgendar = (psiNome = "") => { setAgendarPsi(psiNome); setAgendarOpen(true); };
 
@@ -329,58 +331,154 @@ function Website({ onAdmin }) {
             </h2>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }}>
-            {ESPECIALISTAS.map((esp, i) => (
-              <div key={i} style={{
-                background: P.white, borderRadius: 20, overflow: "hidden",
-                border: `1px solid ${P.border}`, transition: "transform 0.3s, box-shadow 0.3s",
-              }}>
-                {/* Top accent */}
-                <div style={{ height: 4, background: `linear-gradient(90deg, ${esp.cor}, ${esp.cor}60)` }} />
-                <div style={{ padding: "28px 24px" }}>
-                  {/* Avatar + info */}
-                  <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 16 }}>
-                    <div style={{
-                      width: 56, height: 56, borderRadius: "50%", flexShrink: 0,
-                      background: `linear-gradient(135deg, ${esp.cor}, ${esp.cor}88)`,
-                      display: "flex", alignItems: "center", justifyContent: "center",
-                      color: "#fff", fontFamily: SERIF, fontSize: 24, fontWeight: 400,
-                    }}>{esp.foto}</div>
-                    <div>
-                      <h3 style={{ fontSize: 16, fontWeight: 600, color: P.text, marginBottom: 2 }}>{esp.nome}</h3>
-                      <div style={{ fontSize: 11, color: esp.cor, fontWeight: 600 }}>CRP {esp.crp}</div>
-                    </div>
-                  </div>
-
-                  {/* Abordagem */}
-                  <div style={{ display: "inline-block", padding: "4px 12px", borderRadius: 50, background: `${esp.cor}12`, marginBottom: 12 }}>
-                    <span style={{ fontSize: 11, fontWeight: 600, color: esp.cor }}>{esp.abordagem}</span>
-                  </div>
-
-                  {/* Descrição */}
-                  <p style={{ fontSize: 13, color: P.textSoft, lineHeight: 1.65, marginBottom: 16, minHeight: 60 }}>{esp.desc}</p>
-
-                  {/* Turnos */}
-                  <div style={{ display: "flex", gap: 8, marginBottom: 18 }}>
-                    {esp.turnos.map(t => (
-                      <span key={t} style={{
-                        padding: "4px 12px", borderRadius: 50, fontSize: 11, fontWeight: 500,
-                        background: P.sageLt, color: P.sageDk, border: `1px solid ${P.sage}30`,
-                      }}>🕐 {t}</span>
-                    ))}
-                  </div>
-
-                  {/* CTA */}
-                  <button onClick={() => openAgendar(esp.nome)} style={{
-                    width: "100%", padding: "12px", borderRadius: 12, border: "none",
-                    background: `linear-gradient(135deg, ${esp.cor}, ${esp.cor}cc)`,
-                    color: "#fff", fontWeight: 600, fontSize: 13, cursor: "pointer",
-                    fontFamily: SANS, letterSpacing: "0.02em",
-                  }}>Agendar com {esp.nome.split(" ")[1]}</button>
+          {/* ═══ FILTROS ═══ */}
+          <div style={{ background: P.white, padding: 24, borderRadius: 16, marginBottom: 40, border: `1px solid ${P.border}` }}>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24 }}>
+              {/* Filtro por Tipo */}
+              <div>
+                <label style={{ fontSize: 12, fontWeight: 600, color: P.text, marginBottom: 12, display: "block" }}>🧒 Tipo de Atendimento</label>
+                <div style={{ display: "flex", gap: 12 }}>
+                  {["criança", "adulto"].map(tipo => (
+                    <label key={tipo} style={{ display: "flex", alignItems: "center", gap: 8, cursor: "pointer" }}>
+                      <input 
+                        type="checkbox" 
+                        checked={filtroTipo.includes(tipo)}
+                        onChange={(e) => setFiltroTipo(e.target.checked ? [...filtroTipo, tipo] : filtroTipo.filter(t => t !== tipo))}
+                        style={{ width: 18, height: 18, cursor: "pointer" }}
+                      />
+                      <span style={{ fontSize: 13, color: P.text, textTransform: "capitalize" }}>
+                        {tipo === "criança" ? "👧 Crianças" : "👩 Adultos"}
+                      </span>
+                    </label>
+                  ))}
                 </div>
               </div>
-            ))}
+
+              {/* Filtro por Período */}
+              <div>
+                <label style={{ fontSize: 12, fontWeight: 600, color: P.text, marginBottom: 12, display: "block" }}>🕐 Períodos Disponíveis</label>
+                <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+                  {["Manhã", "Tarde", "Noite"].map(periodo => (
+                    <label key={periodo} style={{ display: "flex", alignItems: "center", gap: 8, cursor: "pointer" }}>
+                      <input 
+                        type="checkbox" 
+                        checked={filtroPeriodo.includes(periodo)}
+                        onChange={(e) => setFiltroPeriodo(e.target.checked ? [...filtroPeriodo, periodo] : filtroPeriodo.filter(p => p !== periodo))}
+                        style={{ width: 18, height: 18, cursor: "pointer" }}
+                      />
+                      <span style={{ fontSize: 13, color: P.text }}>
+                        {periodo === "Manhã" ? "🌅" : periodo === "Tarde" ? "☀️" : "🌙"} {periodo}
+                      </span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
+
+          {/* ═══ ESPECIALISTAS FILTRADOS ═══ */}
+          {(() => {
+            const especialistasFiltrados = ESPECIALISTAS.filter(esp => {
+              // Se não há filtros, mostra todos
+              if (filtroTipo.length === 0 && filtroPeriodo.length === 0) return true;
+              
+              // Filtro por tipo de atendimento
+              const passaTipo = filtroTipo.length === 0 || filtroTipo.some(tipo => esp.tipoAtendimento.includes(tipo));
+              
+              // Filtro por período
+              const passaPeriodo = filtroPeriodo.length === 0 || filtroPeriodo.some(periodo => esp.turnos.includes(periodo));
+              
+              return passaTipo && passaPeriodo;
+            });
+
+            if (especialistasFiltrados.length === 0) {
+              return (
+                <div style={{ textAlign: "center", padding: "60px 20px", background: P.white, borderRadius: 16, border: `1px solid ${P.border}` }}>
+                  <div style={{ fontSize: 40, marginBottom: 16 }}>🔍</div>
+                  <h3 style={{ fontSize: 20, color: P.text, marginBottom: 8, fontWeight: 600 }}>Nenhum especialista encontrado</h3>
+                  <p style={{ fontSize: 14, color: P.textMuted }}>Tente ajustar os filtros para encontrar profissionais disponíveis nos períodos e tipos de atendimento que você busca.</p>
+                  <button 
+                    onClick={() => { setFiltroTipo([]); setFiltroPeriodo([]); }}
+                    style={{
+                      marginTop: 20, padding: "10px 24px", borderRadius: 8, border: `1px solid ${P.sage}`,
+                      background: "transparent", color: P.sage, fontWeight: 600, cursor: "pointer", fontSize: 13
+                    }}
+                  >
+                    ✕ Limpar Filtros
+                  </button>
+                </div>
+              );
+            }
+
+            return (
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }}>
+                {especialistasFiltrados.map((esp, i) => (
+                  <div key={i} style={{
+                    background: P.white, borderRadius: 20, overflow: "hidden",
+                    border: `1px solid ${P.border}`, transition: "transform 0.3s, box-shadow 0.3s",
+                  }}>
+                    {/* Top accent */}
+                    <div style={{ height: 4, background: `linear-gradient(90deg, ${esp.cor}, ${esp.cor}60)` }} />
+                    <div style={{ padding: "28px 24px" }}>
+                      {/* Avatar + info */}
+                      <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 16 }}>
+                        <div style={{
+                          width: 56, height: 56, borderRadius: "50%", flexShrink: 0,
+                          background: `linear-gradient(135deg, ${esp.cor}, ${esp.cor}88)`,
+                          display: "flex", alignItems: "center", justifyContent: "center",
+                          color: "#fff", fontFamily: SERIF, fontSize: 24, fontWeight: 400,
+                        }}>{esp.foto}</div>
+                        <div>
+                          <h3 style={{ fontSize: 16, fontWeight: 600, color: P.text, marginBottom: 2 }}>{esp.nome}</h3>
+                          <div style={{ fontSize: 11, color: esp.cor, fontWeight: 600 }}>CRP {esp.crp}</div>
+                        </div>
+                      </div>
+
+                      {/* Abordagem */}
+                      <div style={{ display: "inline-block", padding: "4px 12px", borderRadius: 50, background: `${esp.cor}12`, marginBottom: 12 }}>
+                        <span style={{ fontSize: 11, fontWeight: 600, color: esp.cor }}>{esp.abordagem}</span>
+                      </div>
+
+                      {/* Descrição */}
+                      <p style={{ fontSize: 13, color: P.textSoft, lineHeight: 1.65, marginBottom: 16, minHeight: 60 }}>{esp.desc}</p>
+
+                      {/* Tipo de Atendimento */}
+                      <div style={{ display: "flex", gap: 6, marginBottom: 12, flexWrap: "wrap" }}>
+                        {esp.tipoAtendimento.map(tipo => (
+                          <span key={tipo} style={{
+                            padding: "3px 10px", borderRadius: 50, fontSize: 10, fontWeight: 500,
+                            background: P.blueLt, color: P.blue, border: `1px solid ${P.blue}30`,
+                          }}>
+                            {tipo === "criança" ? "👧 Criança" : "👩 Adulto"}
+                          </span>
+                        ))}
+                      </div>
+
+                      {/* Turnos */}
+                      <div style={{ display: "flex", gap: 8, marginBottom: 18, flexWrap: "wrap" }}>
+                        {esp.turnos.map(t => (
+                          <span key={t} style={{
+                            padding: "4px 12px", borderRadius: 50, fontSize: 11, fontWeight: 500,
+                            background: P.sageLt, color: P.sageDk, border: `1px solid ${P.sage}30`,
+                          }}>
+                            {t === "Manhã" ? "🌅" : t === "Tarde" ? "☀️" : "🌙"} {t}
+                          </span>
+                        ))}
+                      </div>
+
+                      {/* CTA */}
+                      <button onClick={() => openAgendar(esp.nome)} style={{
+                        width: "100%", padding: "12px", borderRadius: 12, border: "none",
+                        background: `linear-gradient(135deg, ${esp.cor}, ${esp.cor}cc)`,
+                        color: "#fff", fontWeight: 600, fontSize: 13, cursor: "pointer",
+                        fontFamily: SANS, letterSpacing: "0.02em",
+                      }}>Agendar com {esp.nome.split(" ")[1]}</button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            );
+          })()}
         </div>
       </section>
 
