@@ -62,8 +62,54 @@ const SALAS_FOTOS = [
   { titulo: "Sala de Atendimento 4", desc: "Design minimalista e relaxante" },
 ];
 
-// Admin data
-const ADMIN_MENU = [
+// ═══════════════════════════════════════════════════════════════
+// FUNÇÕES AUXILIARES — HORÁRIOS E PERÍODOS
+// ═══════════════════════════════════════════════════════════════
+
+// Definição de períodos do dia
+const PERIODOS = {
+  Manhã: { inicio: 7, fim: 12, emoji: "🌅" },       // 07:00 - 12:59
+  Tarde: { inicio: 13, fim: 17, emoji: "☀️" },      // 13:00 - 17:59
+  Noite: { inicio: 18, fim: 23, emoji: "🌙" },      // 18:00 - 23:59
+};
+
+// Verificar se um horário (quebrado ou completo) pertence a um período
+const horaEmPeriodo = (horaStr, periodo) => {
+  const periodoDef = PERIODOS[periodo];
+  if (!periodoDef || !horaStr) return false;
+  const [hora] = horaStr.split(":").map(Number);
+  return hora >= periodoDef.inicio && hora <= periodoDef.fim;
+};
+
+// Dados de agenda simulados (em produção, viriam do Google Sheets)
+// Formato: { psicóloga: "Nome", horarios: ["07:00", "14:10", "20:11"] }
+const AGENDA_DISPONIBILIDADE = {
+  "Dra. Michelle Rodrigues": ["07:30", "08:00", "09:00", "10:00", "11:30", "14:00", "14:10", "16:30", "17:00"],
+  "Dra. Lana Baeta": ["07:00", "08:30", "09:00", "10:30", "13:30", "14:10", "16:00", "18:00", "20:11"],
+  "Dra. Gabriella Santos": ["08:00", "09:30", "10:00", "11:00", "13:00", "14:10", "15:00", "17:30"],
+  "Dra. Andressa Lima": ["14:00", "14:10", "15:30", "17:00", "18:30", "19:00", "20:00", "20:45"],
+  "Dra. Andréia Costa": ["07:00", "08:00", "09:30", "13:00", "14:30", "18:00", "19:30", "20:11"],
+  "Dra. Suellen Oliveira": ["14:30", "15:00", "17:00", "18:00", "18:45", "19:00", "20:11"],
+  "Dra. Graziela Ferreira": ["07:00", "07:30", "09:00", "11:00", "12:00"],
+  "Dra. Flavia Mendes": ["08:00", "09:00", "10:30", "13:00", "14:10", "15:30", "18:30", "19:00", "20:00"],
+  "Dra. Celejane Almeida": ["07:30", "08:30", "13:30", "15:00", "18:00", "19:30", "20:11"],
+};
+
+// Função para obter períodos disponíveis de uma psicóloga
+const obterPeriodosDisponiveis = (nomePsicóloga) => {
+  const horarios = AGENDA_DISPONIBILIDADE[nomePsicóloga] || [];
+  const periodosUnicos = new Set();
+  
+  horarios.forEach(horario => {
+    if (horario >= "07:00" && horario <= "12:59") periodosUnicos.add("Manhã");
+    if (horario >= "13:00" && horario <= "17:59") periodosUnicos.add("Tarde");
+    if (horario >= "18:00" && horario <= "23:59") periodosUnicos.add("Noite");
+  });
+  
+  return Array.from(periodosUnicos);
+};
+
+// ═══════════════════════════════════════════════════════════════
   { id:"dash", label:"Dashboard", icon:"📊" },
   { id:"agenda", label:"Agenda Central", icon:"📅" },
   { id:"pacientes", label:"Pacientes", icon:"👥" },
@@ -374,6 +420,28 @@ function Website({ onAdmin }) {
                 </div>
               </div>
             </div>
+            {/* Botões de Ação */}
+            <div style={{ display: "flex", gap: 12, marginTop: 20, justifyContent: "flex-end" }}>
+              <button
+                onClick={() => { setFiltroTipo([]); setFiltroPeriodo([]); }}
+                style={{
+                  padding: "10px 20px", borderRadius: 8, border: `1px solid ${P.border}`,
+                  background: P.white, color: P.text, fontWeight: 600, cursor: "pointer", fontSize: 13
+                }}
+              >
+                🔄 Recomeçar
+              </button>
+              <button
+                style={{
+                  padding: "10px 20px", borderRadius: 8, border: "none",
+                  background: P.sage, color: P.white, fontWeight: 600, cursor: "pointer", fontSize: 13
+                }}
+              >
+                ✓ Ver Resultados
+              </button>
+            </div>
+              </div>
+            </div>
           </div>
 
           {/* ═══ ESPECIALISTAS FILTRADOS ═══ */}
@@ -385,8 +453,15 @@ function Website({ onAdmin }) {
               // Filtro por tipo de atendimento
               const passaTipo = filtroTipo.length === 0 || filtroTipo.some(tipo => esp.tipoAtendimento.includes(tipo));
               
-              // Filtro por período
-              const passaPeriodo = filtroPeriodo.length === 0 || filtroPeriodo.some(periodo => esp.turnos.includes(periodo));
+              // Filtro por período — buscar na agenda real
+              if (filtroPeriodo.length === 0) {
+                // Sem filtro de período, passa
+                return passaTipo;
+              }
+              
+              // Com filtro de período, verifica disponibilidade real
+              const periodosDisponiveis = obterPeriodosDisponiveis(esp.nome);
+              const passaPeriodo = filtroPeriodo.some(periodo => periodosDisponiveis.includes(periodo));
               
               return passaTipo && passaPeriodo;
             });
@@ -454,16 +529,22 @@ function Website({ onAdmin }) {
                         ))}
                       </div>
 
-                      {/* Turnos */}
+                      {/* Turnos — Baseado na Agenda Real */}
                       <div style={{ display: "flex", gap: 8, marginBottom: 18, flexWrap: "wrap" }}>
-                        {esp.turnos.map(t => (
-                          <span key={t} style={{
-                            padding: "4px 12px", borderRadius: 50, fontSize: 11, fontWeight: 500,
-                            background: P.sageLt, color: P.sageDk, border: `1px solid ${P.sage}30`,
-                          }}>
-                            {t === "Manhã" ? "🌅" : t === "Tarde" ? "☀️" : "🌙"} {t}
-                          </span>
-                        ))}
+                        {(() => {
+                          const periodosReais = obterPeriodosDisponiveis(esp.nome);
+                          // Se não houver dados na agenda, mostrar os turnos estáticos
+                          const periodos = periodosReais.length > 0 ? periodosReais : esp.turnos;
+                          
+                          return periodos.map(t => (
+                            <span key={t} style={{
+                              padding: "4px 12px", borderRadius: 50, fontSize: 11, fontWeight: 500,
+                              background: P.sageLt, color: P.sageDk, border: `1px solid ${P.sage}30`,
+                            }}>
+                              {t === "Manhã" ? "🌅" : t === "Tarde" ? "☀️" : "🌙"} {t}
+                            </span>
+                          ));
+                        })()}
                       </div>
 
                       {/* CTA */}
